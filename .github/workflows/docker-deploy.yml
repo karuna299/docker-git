@@ -40,6 +40,7 @@ jobs:
           host: ${{ secrets.EC2_HOST }}
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
+          envs: IMAGE_NAME,IMAGE_TAG
           script: |
             cd /home/ubuntu/app
 
