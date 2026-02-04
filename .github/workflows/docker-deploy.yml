@@ -46,5 +46,4 @@ jobs:
 
             sed -i "s|image: .*|image: $IMAGE_NAME:${{ env.IMAGE_TAG }}|" docker-compose.yml
 
-            docker-compose pull
-            docker-compose up -d
+            docker stack deploy -c docker-compose.yml app

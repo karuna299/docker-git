@@ -12,13 +12,13 @@
         name:
           - docker.io
         state: present
-        
+
     - name: Ensure Docker service is started and enabled
       service:
         name: docker
         state: started
         enabled: yes
-
+    
     - name: Install Docker Compose
       apt:
         name:
@@ -35,6 +35,15 @@
         name: ubuntu
         groups: docker
         append: yes
+
+    - name: Check Docker Swarm status
+      command: docker info
+      register: docker_info
+      changed_when: false
+
+    - name: Initialize Docker Swarm
+      command: docker swarm init
+      when: "'Swarm: active' not in docker_info.stdout"
 
     - name: Create application directory
       file:
